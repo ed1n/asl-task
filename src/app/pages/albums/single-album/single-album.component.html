@@ -1,0 +1,22 @@
+<div *ngIf="!loading; else showLoading">
+  <div *ngIf="album; else showErrorMsg">
+    <app-single-full-album-card [album]="album"></app-single-full-album-card>
+    <div class="photos-heading">
+      <h3><i class="fa fa-image"></i> Photos</h3>
+    </div>
+    <div class="photos">
+      <app-single-album-photos [albumId]="album.id"></app-single-album-photos>
+    </div>
+
+  </div>
+
+  <ng-template #showErrorMsg>
+    <div class="alert alert-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
+  </ng-template>
+</div>
+
+<ng-template #showLoading>
+  <div class="text-center">
+    <img src="https://www.apps4efl.com/images/loading.gif" width="50px" height="50px;">
+  </div>
+</ng-template>

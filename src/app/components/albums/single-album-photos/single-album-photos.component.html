@@ -1,0 +1,32 @@
+<div *ngIf="!loading; else showLoading">
+  <div *ngIf="photos?.length > 0; else noPhotos">
+    <div class="row" *ngFor="let photos of chunkedPhotos">
+      <div class="col-6 col-md-2" *ngFor="let photo of photos">
+        <app-single-photo-card [photo]="photo" (showModal)="showModal($event)"></app-single-photo-card>
+
+      </div>
+
+      {{ modalImage }}
+
+      <div class="fullImageModal" *ngIf="modalImage">
+        <span class="close" (click)="modalImage = null">&times;</span>
+        <img class="modal-image" [src]="modalImage">
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noPhotos>
+    <div class="text-center" *ngIf="!errorMsg; else showErrorMsg">
+      No photos
+    </div>
+  </ng-template>
+  <ng-template #showErrorMsg>
+    <div class="alert alert-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
+  </ng-template>
+</div>
+
+<ng-template #showLoading>
+  <div class="text-center">
+    <img src="https://www.apps4efl.com/images/loading.gif" width="50px" height="50px;">
+  </div>
+</ng-template>

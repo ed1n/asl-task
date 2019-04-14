@@ -1,0 +1,12 @@
+.author {
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+.author-email {
+    margin-bottom: 0px;
+    font-style: italic;
+}
+
+.card {
+    margin: 5px 0;
+}

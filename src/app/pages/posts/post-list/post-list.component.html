@@ -1,0 +1,60 @@
+<div *ngIf="!loading; else showLoading">
+    <div *ngIf="filteredPosts?.length > 0; else noPosts">
+
+        <div class="row">
+            <div class="col-12">
+                <span class="badge badge-pill badge-dark" *ngFor="let id of filterByIds"
+                    (click)="removeFilterId(id)">{{id}}</span>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="showIdInputErrorMsg">
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    Id value must be between 1 and 100
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <label class="col-12 col-md-2 col-form-label">Filter by Id</label>
+                    <div class="col-8 col-md-8">
+                        <input class="form-control" type="number" min="1" max="100" [(ngModel)]="filterByUserIdInput">
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <button type="button" class="btn btn-light float-right"
+                            (click)="updateFilterByIds()">Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-light float-right"
+                    (click)="changeAscDescFilterMode()">{{ ascDescFilterMode == 0 ? 'Ascending' : 'Descending'}}</button>
+            </div>
+        </div>
+
+
+        <app-single-post-card *ngFor="let post of filteredPosts" [post]="post">
+        </app-single-post-card>
+    </div>
+
+    <ng-template #noPosts>
+        <div class="text-center" *ngIf="!errorMsg; else showErrorMsg">
+            No posts
+        </div>
+    </ng-template>
+    <ng-template #showErrorMsg>
+        <div class="alert alert-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
+    </ng-template>
+</div>
+
+<ng-template #showLoading>
+    <div class="text-center">
+        <img src="https://www.apps4efl.com/images/loading.gif" width="50px" height="50px;">
+    </div>
+</ng-template>
